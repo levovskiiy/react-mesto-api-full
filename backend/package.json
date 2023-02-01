@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "lint": "npx eslint .",
-    "prepare": "node ./utils/init",
+    "prepare": "node init",
     "start": "node app",
     "dev": "nodemon -q"
   },
