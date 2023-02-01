@@ -22,14 +22,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(DB_CONN);
 
-app.use(cors(
-  {
-    origin: 'https://mesto.levovskiiy.nomoredomainsclub.ru',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    optionsSuccessStatus: 204,
-    credentials: true,
-  },
-));
+// app.use(cors(
+//   {
+//     origin: ['https://mesto.levovskiiy.nomoredomainsclub.ru', 'localhost:5000'],
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     optionsSuccessStatus: 204,
+//     credentials: true,
+//   },
+// ));
 
 app.options('*', cors());
 app.use(requestLogger);
