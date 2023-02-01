@@ -48,14 +48,9 @@ module.exports = {
   async getCurrent(req, res, next) {
     try {
       const user = await UserService.getOne(req.user.id);
-
       res.send(user);
     } catch (err) {
-      if (err.name === 'CastError') {
-        next(new BadRequestError(err.message));
-      } else {
-        next(err);
-      }
+      next(err);
     }
   },
 
@@ -112,7 +107,7 @@ module.exports = {
 
       res.send(updatedUser);
     } catch (err) {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new BadRequestError(err.message));
       } else {
         next(err);
@@ -136,7 +131,7 @@ module.exports = {
 
       res.send(updatedAvatar);
     } catch (err) {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
+      if (err.name === 'ValidationError') {
         next(new BadRequestError(err.message));
       } else {
         next(err);
