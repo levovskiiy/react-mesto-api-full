@@ -24,7 +24,7 @@ mongoose.connect(DB_CONN);
 
 app.use(cors(
   {
-    origin: 'api.mesto.levovskiiy.nomoredomainsclub.ru',
+    origin: 'https://mesto.levovskiiy.nomoredomainsclub.ru',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     optionsSuccessStatus: 204,
     credentials: true,
