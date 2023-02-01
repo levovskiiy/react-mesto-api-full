@@ -9,7 +9,7 @@ class Auth {
   }
 
   request(endpoint, options) {
-    return fetch(`${Auth.BASE_URL}${endpoint}`, options)
+    return fetch(`${Auth.BASE_URL}${endpoint}`, { credentials: 'include', ...options })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -51,7 +51,6 @@ class Auth {
       method: 'GET',
       headers: {
         ...this.headers,
-        Authorization: `Bearer ${token}`,
       },
     });
   }
