@@ -1,0 +1,29 @@
+.popup__button {
+    position: relative;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.popup__button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.popup__button:disabled {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.popup__button:disabled:hover {
+    cursor: default;
+    opacity: 1;
+}
+
+@media screen and (max-width: 450px) {
+    .popup__button {
+        font-size: 14px;
+    }
+}

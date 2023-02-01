@@ -1,0 +1,12 @@
+.card-list__button-like {
+  width: 22px;
+  height: 19px;
+  background-image: url("../../../icons/heart-icon.svg");
+  background-repeat: no-repeat;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.card-list__button-like:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}

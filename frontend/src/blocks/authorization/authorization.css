@@ -1,0 +1,25 @@
+.authorization {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 60px 200px 80px 200px;
+}
+
+@media screen and (max-width: 768px) {
+    .authorization {
+        margin: 45px 100px 45px 100px;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .authorization {
+        margin: 60px 65px 25px 65px;
+    }
+}
+
+@media screen and (max-width: 361px) {
+    .authorization {
+        margin: 60px 20px 25px 20px;
+    }
+}
+

@@ -1,0 +1,12 @@
+.authUserInfo__link {
+    text-decoration: none;
+    background: transparent;
+    color: #fff;
+    margin-left: 24px;
+    transition: opacity 0.5s ease;
+}
+
+.authUserInfo__link:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}

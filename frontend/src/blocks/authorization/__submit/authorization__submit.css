@@ -1,0 +1,32 @@
+.authorization__submit {
+    margin-top: 216px;
+    padding: 14px 84px;
+    background: #FFF;
+    text-align: center;
+}
+
+.authorization__submit:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.authorization__submit:disabled {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.authorization__submit:disabled:hover {
+    cursor: default;
+    opacity: 1;
+}
+
+
+@media screen and (max-width: 560px) {
+    .authorization__submit {
+        margin-top: 100px;
+        padding: 14px 50px;
+        background: #FFF;
+        text-align: center;
+    }
+}

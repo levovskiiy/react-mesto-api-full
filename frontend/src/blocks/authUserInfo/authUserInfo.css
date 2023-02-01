@@ -1,0 +1,8 @@
+.authUserInfo {
+    display: flex;
+    flex-direction: row;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #fff;
+}

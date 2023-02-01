@@ -1,0 +1,19 @@
+.authorization__input {
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    background-color: black;
+    margin: 0;
+    padding: 0 0 13px 0;
+    width: 100%;
+    color: #FFF;
+    border-bottom: 2px solid rgba(84, 84, 84, 0.7);
+
+}
+
+.authorization__input::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #CCCCCC;
+}

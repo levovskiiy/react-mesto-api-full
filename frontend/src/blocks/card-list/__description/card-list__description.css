@@ -1,0 +1,8 @@
+.card-list__description {
+  padding: 25px 15px 31px 21px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0 0 10px 10px;
+  background-color: #fff;
+}
