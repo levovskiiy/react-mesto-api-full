@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const dotenv = require('dotenv');
 const cors = require('cors');
 
 const { errors } = require('celebrate');
@@ -10,8 +9,6 @@ const { default: helmet } = require('helmet');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
-
-dotenv.config();
 
 const DB_CONN = 'mongodb://localhost:27017/mestodb';
 const { PORT = 5000 } = process.env;
@@ -27,7 +24,7 @@ mongoose.connect(DB_CONN);
 
 app.use(cors(
   {
-    origin: ['mesto.levovskiiy.nomoredomainsclub.ru', 'localhost:5000'],
+    origin: 'api.mesto.levovskiiy.nomoredomainsclub.ru',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     optionsSuccessStatus: 204,
     credentials: true,
