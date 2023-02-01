@@ -125,3 +125,5 @@
 | Parameter | Type     | Description               |
 | :-------- | :------- | :------------------------ |
 | `id`      | `string` | **Required**. ID карточки |
+
+Repository: https://github.com/levovskiiy/react-mesto-api-full
