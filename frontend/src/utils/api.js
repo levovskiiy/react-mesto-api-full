@@ -13,24 +13,23 @@ class Api {
 
   /**
    * Конфигурирует запрос на API. 
-   * Возвращаемое значение представляет собой промис объекта в зависимости от типа запроса.
-   * Возбуждает исключение если запрос был откланен
-   * @param {string} path
+   * Возбуждает исключение если запрос был отклонен
+   * @param {string} path эндпоинт запроса
    * @param {object} requestParameters объект с настройками запроса
    * @param {'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'} requestParameters.method HTTP метод запроса
-   * @param {object} requestParameters.headers Объект загловок запроса
-   * @param {object} requestParameters.body Тело запроса
-   * @param {string} requestParameters.credentials уазывает, должен ли запрос отправлять куки 
+   * @param {object | undefined} requestParameters.headers Объект загловок запроса
+   * @param {object | undefined} requestParameters.body Тело запроса
+   * @param {string | undefined} requestParameters.credentials уазывает, должен ли запрос отправлять куки 
    * и авторизационные заголовки
-   * @returns {Promise<object>}
+   * @returns {Promise<object>} Возвращает данные в виде объекта
    * @private
    */
-  async _request(path, { method, headers = {}, body = {}, credentials = 'include' }) {
+  async _request(path, requestParameters) {
     const response = await fetch(`${this._baseUrl}${path}`, {
-      method,
-      credentials,
-      body,
-      headers: { ...this._headers, ...headers },
+      method: requestParameters.method,
+      credentials: requestParameters?.credentials,
+      body: requestParameters?.body,
+      headers: { ...this._headers, ...requestParameters?.headers },
     });
     if (response.ok) {
       return response.json();

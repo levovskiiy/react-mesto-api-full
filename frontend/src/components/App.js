@@ -6,9 +6,9 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import api from "../utils/api";
 import auth from '../utils/auth';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import {currentUserContext} from "../contexts/currentUserContext";
+import { currentUserContext } from "../contexts/currentUserContext";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import Register from './Register';
@@ -39,7 +39,7 @@ function App() {
 
   const history = useHistory();
 
-  useEffect( () => {
+  useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       auth.checkToken(jwt)
@@ -83,7 +83,7 @@ function App() {
 
   function authorizeHandler(userData) {
     auth.authorize(userData)
-      .then(({token }) => {
+      .then(({ token }) => {
         localStorage.setItem('jwt', token);
         setLoggedIn(true);
         history.push('/');
@@ -109,6 +109,7 @@ function App() {
     api.getData()
       .then((data) => {
         const [user, userCards] = data;
+        console.log(user)
         setCards(userCards);
         setCurrentUser(user);
       })
@@ -166,7 +167,7 @@ function App() {
   const handleUpdateAvatar = (userAvatar) => {
     api.replaceAvatar(userAvatar.avatar)
       .then(data => {
-        setCurrentUser({...currentUser, avatar: data.avatar});
+        setCurrentUser({ ...currentUser, avatar: data.avatar });
         closeAllPopups();
       })
       .catch(err => {
@@ -207,46 +208,46 @@ function App() {
   }
 
   return (
-      <currentUserContext.Provider value={currentUser}>
-        <Header email={email} onSignOut={signOutHandler} loggedIn={loggedIn}/>
+    <currentUserContext.Provider value={currentUser}>
+      <Header email={email} onSignOut={signOutHandler} loggedIn={loggedIn} />
 
-        <Switch>
-          <Route path="/sign-in">
-            <Login onAuth={authorizeHandler} />
-          </Route>
+      <Switch>
+        <Route path="/sign-in">
+          <Login onAuth={authorizeHandler} />
+        </Route>
 
-          <Route path="/sign-up">
-            <Register onRegistration={registerHandler}/>
-          </Route>
+        <Route path="/sign-up">
+          <Register onRegistration={registerHandler} />
+        </Route>
 
-          <ProtectedRoute
-            excat path="/"
-            component={Main}
-            {...cardComponentProps} />
+        <ProtectedRoute
+          excat path="/"
+          component={Main}
+          {...cardComponentProps} />
 
-          <Route>
-            {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' /> }
-          </Route>
-        </Switch>
+        <Route>
+          {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+        </Route>
+      </Switch>
 
-        {loggedIn && <Footer />}
+      {loggedIn && <Footer />}
 
-        <PopupWithForm
-          name="delete-card"
-          title="Вы уверены?"
-          isOpen={isDeleteCardPopupOpen}
-          onClose={closeAllPopups}
-          buttonText="Удалить"
-        ></PopupWithForm>
+      <PopupWithForm
+        name="delete-card"
+        title="Вы уверены?"
+        isOpen={isDeleteCardPopupOpen}
+        onClose={closeAllPopups}
+        buttonText="Удалить"
+      ></PopupWithForm>
 
-        <EditProfilePopup onClose={closeAllPopups} isOpen={isEditProfileOpen} onUpdateUser={handleUpdateUser}/>
+      <EditProfilePopup onClose={closeAllPopups} isOpen={isEditProfileOpen} onUpdateUser={handleUpdateUser} />
 
-        <EditAvatarPopup onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} onUpdateAvatar={handleUpdateAvatar}/>
-        <AddPlacePopup onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} onUpdatePalce={handleAddPlaceSubmit}/>
+      <EditAvatarPopup onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} onUpdateAvatar={handleUpdateAvatar} />
+      <AddPlacePopup onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} onUpdatePalce={handleAddPlaceSubmit} />
 
-        <InfoTooltip onClose={closeAllPopups} isOpen={isInfoTooltipOpen} messageBeforeRegistration={messageBeforeRegister}/>
-        <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
-      </currentUserContext.Provider>
+      <InfoTooltip onClose={closeAllPopups} isOpen={isInfoTooltipOpen} messageBeforeRegistration={messageBeforeRegister} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+    </currentUserContext.Provider>
   );
 }
 
