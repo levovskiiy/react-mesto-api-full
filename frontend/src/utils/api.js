@@ -6,9 +6,10 @@ class Api {
    * @param {string} baseUrl URL API сервера 
    * @param {Object} params Различные параметры для запросов на сервер.
    */
-  constructor(baseUrl, { headers }) {
+  constructor(baseUrl, settings) {
     this._baseUrl = baseUrl;
-    this._headers = headers;
+    this._headers = settings.headers;
+    this._credentials = settings.credentials ?? 'include';
   }
 
   /**
@@ -27,8 +28,8 @@ class Api {
   async _request(path, requestParameters) {
     const response = await fetch(`${this._baseUrl}${path}`, {
       method: requestParameters.method,
-      credentials: requestParameters?.credentials,
       body: requestParameters?.body,
+      credentials: this._credentials,
       headers: { ...this._headers, ...requestParameters?.headers },
     });
     if (response.ok) {
@@ -97,9 +98,6 @@ class Api {
    */
   getInitialCards() {
     return this._get('/cards');
-    // return this._request('/cards', {
-    //   method: 'GET',
-    // });
   }
 
   /**
@@ -108,9 +106,6 @@ class Api {
    */
   getUserData() {
     return this._get('/users/me');
-    // return this._request('/users/me', {
-    //   method: 'GET',
-    // });
   }
 
   /**
@@ -120,13 +115,6 @@ class Api {
    */
   editProfile({ username, description }) {
     return this._patch('/users/me', { name: username, about: description })
-    // return this._request('/users/me', {
-    //   method: 'PATCH',
-    //   body: JSON.stringify({
-    //     name: userData.username,
-    //     about: userData.description,
-    //   }),
-    // });
   }
 
   /**
@@ -136,10 +124,6 @@ class Api {
    */
   postCard(card) {
     return this._post('/cards', card);
-    // return this._request('/cards', {
-    //   method: 'POST',
-    //   body: JSON.stringify(card),
-    // });
   }
 
   /**
@@ -150,9 +134,6 @@ class Api {
    */
   deleteCard(cardId) {
     return this._delete(`/cards/${cardId}`);
-    // return this._request(`/cards/${cardId}`, {
-    //   method: 'DELETE',
-    // });
   }
 
   /**
@@ -173,9 +154,6 @@ class Api {
    */
   likeCard(cardId) {
     return this._put(`/cards/${cardId}`);
-    // return this._request(`/cards/${cardId}`, {
-    //   method: 'PUT',
-    // });
   }
 
   /**
@@ -186,9 +164,6 @@ class Api {
    */
   unlikeCard(cardId) {
     return this._delete(`/cards/${cardId}/likes`);
-    // return this._request(`/cards/${cardId}/likes`, {
-    //   method: 'DELETE',
-    // });
   }
 
   /**
@@ -199,12 +174,6 @@ class Api {
    */
   replaceAvatar(avatarLink) {
     return this._patch('/users/me/avatar', { avatar: avatarLink })
-    // return this._request('/users/me/avatar', {
-    //   method: 'PATCH',
-    //   body: JSON.stringify({
-    //     avatar: avatarLink,
-    //   }),
-    // });
   }
 
   /**
@@ -217,7 +186,7 @@ class Api {
 }
 
 
-const api = new Api('https://api.mesto.levovskiiy.nomoredomainsclub.ru', {
+const api = new Api('https://mesto.levovskiiy.nomoredomainsclub.ru', {
   headers: {
     'Content-Type': 'application/json',
   },

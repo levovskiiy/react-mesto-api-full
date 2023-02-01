@@ -40,19 +40,16 @@ function App() {
   const history = useHistory();
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth.checkToken(jwt)
-        .then((res) => {
-          const { email } = res.data;
-          setLoggedIn(true);
-          setEmail(email);
-          history.push('/');
-        })
-        .catch(err => {
-          console.log(err.status);
-        })
-    }
+    auth.checkToken()
+      .then((res) => {
+        const { email } = res;
+        setLoggedIn(true);
+        setEmail(email);
+        history.push('/');
+      })
+      .catch(err => {
+        console.log(err.status);
+      })
   }, [history]);
 
   function registerHandler(userData) {
@@ -83,8 +80,7 @@ function App() {
 
   function authorizeHandler(userData) {
     auth.authorize(userData)
-      .then(({ token }) => {
-        localStorage.setItem('jwt', token);
+      .then(() => {
         setLoggedIn(true);
         history.push('/');
       })
@@ -109,7 +105,6 @@ function App() {
     api.getData()
       .then((data) => {
         const [user, userCards] = data;
-        console.log(user)
         setCards(userCards);
         setCurrentUser(user);
       })

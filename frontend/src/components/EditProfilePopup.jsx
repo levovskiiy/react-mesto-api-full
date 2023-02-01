@@ -1,25 +1,25 @@
-import PopupWithForm from "./PopupWithForm";
-import {useContext, useEffect, useState} from "react";
-import {currentUserContext} from "../contexts/currentUserContext";
+import PopupWithForm from './PopupWithForm';
+import { useContext, useEffect, useState } from 'react';
+import { currentUserContext } from '../contexts/currentUserContext';
 
-const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
+const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const currentUser = useContext(currentUserContext);
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = evt => {
     evt.preventDefault();
 
     onUpdateUser({
       username: name,
       description,
     });
-  }
+  };
 
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser, isOpen])
+  }, [currentUser, isOpen]);
 
   return (
     <PopupWithForm
@@ -39,7 +39,7 @@ const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
         minLength="2"
         maxLength="40"
         value={name || ''}
-        onChange={(evt) => setName(evt.target.value)}
+        onChange={evt => setName(evt.target.value)}
         required
       />
       <span className="popup__input-error username-error"></span>
@@ -53,13 +53,12 @@ const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
         minLength="2"
         maxLength="200"
         value={description || ''}
-        onChange={(evt) => setDescription(evt.target.value)}
+        onChange={evt => setDescription(evt.target.value)}
         required
       />
       <span className="popup__input-error about-error"></span>
-
     </PopupWithForm>
-  )
+  );
 };
 
 export default EditProfilePopup;

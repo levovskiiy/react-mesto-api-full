@@ -2,21 +2,17 @@ import RequestError from './RequestError';
 
 
 class Auth {
-  static BASE_URL = 'https://api.mesto.levovskiiy.nomoredomainsclub.ru'
-
-  constructor(headers) {
+  constructor(base_url, headers) {
+    this._base_url = base_url;
     this.headers = headers;
   }
 
-  request(endpoint, options) {
-    return fetch(`${Auth.BASE_URL}${endpoint}`, { credentials: 'include', ...options })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-
-        return Promise.reject(new RequestError(`Ошибка запроса: Код - ${response.status}`, response));
-      })
+  async request(endpoint, options) {
+    const response = await fetch(`${this._base_url}${endpoint}`, { credentials: 'include', ...options });
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(new RequestError(`Ошибка запроса: Код - ${response.status}`, response));
   }
 
   /**
@@ -42,11 +38,14 @@ class Auth {
     return this.request('/signin', {
       method: 'POST',
       headers: this.headers,
-      body: JSON.stringify(userData),
+      body: JSON.stringify({
+        password: userData.password,
+        email: userData.email,
+      }),
     });
   }
 
-  checkToken(token) {
+  checkToken() {
     return this.request('/users/me', {
       method: 'GET',
       headers: {
@@ -56,7 +55,7 @@ class Auth {
   }
 }
 
-const auth = new Auth({
+const auth = new Auth('https://mesto.levovskiiy.nomoredomainsclub.ru', {
   'Content-Type': 'application/json'
 });
 

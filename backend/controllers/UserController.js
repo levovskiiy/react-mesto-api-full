@@ -144,6 +144,12 @@ module.exports = {
     }
   },
 
+  /**
+   *
+   * @param {*} req
+   * @param {import('express').Response} res
+   * @param {*} next
+   */
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
@@ -151,7 +157,6 @@ module.exports = {
       const user = await UserService.login(email, password);
 
       const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-
       res
         .cookie('jwt', token, { httpOnly: true, sameSite: true })
         .send({ message: 'logged!' });

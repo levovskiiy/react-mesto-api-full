@@ -2,12 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 
 const { errors } = require('celebrate');
 const { default: helmet } = require('helmet');
-
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const corsMiddleware = require('./middlewares/cors');
 const routes = require('./routes/index');
 
 const DB_CONN = 'mongodb://localhost:27017/mestodb';
@@ -22,16 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(DB_CONN);
 
-app.use(cors(
-  {
-    origin: ['https://mesto.levovskiiy.nomoredomainsclub.ru'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    optionsSuccessStatus: 204,
-    credentials: true,
-  },
-));
-
-app.options('*', cors());
+app.use(corsMiddleware);
 app.use(requestLogger);
 app.use(routes);
 app.use(errorLogger);
