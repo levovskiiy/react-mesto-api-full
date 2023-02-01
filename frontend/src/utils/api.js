@@ -186,7 +186,7 @@ class Api {
 }
 
 
-const api = new Api('https://mesto.levovskiiy.nomoredomainsclub.ru', {
+const api = new Api('https://api.mesto.levovskiiy.nomoredomainsclub.ru', {
   headers: {
     'Content-Type': 'application/json',
   },

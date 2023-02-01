@@ -55,7 +55,7 @@ class Auth {
   }
 }
 
-const auth = new Auth('https://mesto.levovskiiy.nomoredomainsclub.ru', {
+const auth = new Auth('https://api.mesto.levovskiiy.nomoredomainsclub.ru', {
   'Content-Type': 'application/json'
 });
 
