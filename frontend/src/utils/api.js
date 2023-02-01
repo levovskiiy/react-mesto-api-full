@@ -89,7 +89,7 @@ class Api {
    * @returns {Promise<object>}
    */
   _put(path, queryParams = {}) {
-    return this._request(path, { ...queryParams });
+    return this._request(path, { method: 'PUT', ...queryParams });
   }
 
   /**
