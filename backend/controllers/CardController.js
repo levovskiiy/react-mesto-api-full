@@ -6,7 +6,7 @@ module.exports = {
     try {
       const cards = await CardService.getAll();
 
-      res.send({ data: cards });
+      res.send(cards);
     } catch (err) {
       next(err);
     }
@@ -19,7 +19,7 @@ module.exports = {
 
       const card = await CardService.create({ name, link, owner: id });
 
-      res.send({ data: card });
+      res.send(card);
     } catch (err) {
       next(err.name === 'ValidationError' ? new BadRequestError(err.message) : err);
     }
@@ -32,7 +32,7 @@ module.exports = {
 
       const deletedCard = await CardService.delete(cardId, id);
 
-      res.send({ data: deletedCard });
+      res.send(deletedCard);
     } catch (err) {
       next(err.name === 'CastError' ? new BadRequestError(err.message) : err);
     }
