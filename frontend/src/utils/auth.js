@@ -2,7 +2,7 @@ import RequestError from './RequestError';
 
 
 class Auth {
-  static BASE_URL = 'https://auth.nomoreparties.co'
+  static BASE_URL = 'https://api.mesto.levovskiiy.nomoredomainsclub.ru'
 
   constructor(headers) {
     this.headers = headers;
@@ -11,7 +11,6 @@ class Auth {
   request(endpoint, options) {
     return fetch(`${Auth.BASE_URL}${endpoint}`, options)
       .then((response) => {
-        console.log(response);
         if (response.ok) {
           return response.json();
         }
@@ -25,7 +24,7 @@ class Auth {
    * @returns Promise
    */
   register(userData) {
-    return this.request('/signup',{
+    return this.request('/signup', {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify({
