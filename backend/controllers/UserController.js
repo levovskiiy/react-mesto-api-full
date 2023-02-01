@@ -17,7 +17,7 @@ module.exports = {
     try {
       const users = await UserService.getAll();
 
-      res.send({ data: users });
+      res.send(users);
     } catch (err) {
       next(err);
     }
@@ -35,7 +35,7 @@ module.exports = {
       const { userId } = req.params;
       const user = await UserService.getOne(userId);
 
-      res.send({ data: user });
+      res.send(user);
     } catch (err) {
       if (err.name === 'CastError') {
         next(new BadRequestError(err.message));
@@ -49,7 +49,7 @@ module.exports = {
     try {
       const user = await UserService.getOne(req.user.id);
 
-      res.send({ data: user });
+      res.send(user);
     } catch (err) {
       if (err.name === 'CastError') {
         next(new BadRequestError(err.message));
@@ -82,7 +82,7 @@ module.exports = {
         password: hashPassword,
       });
 
-      res.status(201).send({ data: createdUser.toUserObj() });
+      res.status(201).send(createdUser.toUserObj());
     } catch (err) {
       if (err.code === 11000) {
         next(new ConflictError('Пользователь с данным email уже существует'));
@@ -110,7 +110,7 @@ module.exports = {
 
       const updatedUser = await UserService.update({ name, about }, id);
 
-      res.send({ data: updatedUser });
+      res.send(updatedUser);
     } catch (err) {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError(err.message));
@@ -134,7 +134,7 @@ module.exports = {
 
       const updatedAvatar = await UserService.updateAvatar(avatar, id);
 
-      res.send({ data: updatedAvatar });
+      res.send(updatedAvatar);
     } catch (err) {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError(err.message));

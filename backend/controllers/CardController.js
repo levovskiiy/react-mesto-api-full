@@ -45,7 +45,7 @@ module.exports = {
 
       const likedCard = await CardService.like(cardId, id);
 
-      res.send({ data: likedCard });
+      res.send(likedCard);
     } catch (err) {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError(err.message));
@@ -62,7 +62,7 @@ module.exports = {
 
       const unlikedCard = await CardService.unlike(cardId, id);
 
-      res.send({ data: unlikedCard });
+      res.send(unlikedCard);
     } catch (err) {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new BadRequestError(err.message));
